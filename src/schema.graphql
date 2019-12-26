@@ -1,0 +1,89 @@
+type User {
+  name: String
+  email: String
+  bio: String
+  id: ID
+  error: String
+  contatos: [User]
+  token: String
+  image: String
+  user: User
+  conversa: [Conversa]
+}
+type deleteFor {
+  id1: String
+  id2: String
+}
+type UserContato {
+  name: String
+  id: ID
+  error: String
+  image: String
+  bio: String
+}
+
+type Conversa {
+  create: User
+  participante2: User
+  mensagens: [String]
+  respostas: [String]
+  transmissor: [User]
+  receptor: [User]
+  timestamps: String
+  id: ID
+  hour: [String]
+  deleteAlls: [all]
+  deleteFor: [deleteFor]
+}
+type all {
+  ok: Boolean
+}
+type Token {
+  ok: Boolean
+  error: String
+  id: ID
+}
+
+type Delete {
+  status: Boolean!
+}
+
+type Query {
+  Users: [User!]!
+  Conversas: [Conversa]
+  Conversa(id: ID): Conversa
+  User(id: String): User
+}
+
+type Mutation {
+  Conversa(id: ID!): Conversa
+  User(id: String!): User
+  Login(name: String!, pass: String!): User
+  Contato(name: String!): [UserContato]
+  createUser(
+    name: String!
+    email: String!
+    pass: String!
+    image: String!
+    bio: String
+  ): User
+  createContato(contato: ID!, idUser: ID!): UserContato
+  createConversa(create: ID!, participante2: ID!): Conversa
+  createMensagem(
+    id: ID!
+    transmissor: ID!
+    receptor: ID!
+    userID: ID!
+    mensagem: String
+    resposta: String
+  ): Conversa
+  verifyToken(token: String!): Token
+  DeleteForAll(position: Int!, idChat: ID!, idUser: ID!): Delete
+  DeleteForMe(position: Int!, idUser: String!, idChat: String!): Conversa
+  DeleteChat(,idUser:String!,idChat: String!): Conversa
+}
+
+type Subscription {
+  novaMensagem(id: ID!): Conversa
+  userMessage(id: ID!): User
+}
