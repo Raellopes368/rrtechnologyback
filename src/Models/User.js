@@ -26,9 +26,9 @@ const UserSchema = new Schema(
     image: {
       type: String
     },
-    bio:{
-      type:String
-    },
+    bio: {
+      type: String
+    }
   },
   {
     timestamps: true
@@ -36,7 +36,7 @@ const UserSchema = new Schema(
 );
 
 UserSchema.pre("save", async function(next) {
-  const hash = await bcrypt.hash(this.pass, 10);
+  const hash = await bcrypt.hash(this.pass, 8);
   this.pass = hash;
   next();
 });
