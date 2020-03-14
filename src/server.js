@@ -8,6 +8,8 @@ mongoose.connect("mongodb+srv://rael:rael@cluster0-8qmbp.mongodb.net/chatapp?ret
   useCreateIndex: true
 });
 
+console.log("teste")
+
 const server = new GraphQLServer({
   typeDefs: resolve(__dirname, "schema.graphql"),
   resolvers,
